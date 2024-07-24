@@ -1,0 +1,26 @@
+#include <stdio.h>
+int main() {
+	printf("192211645-G.PRIYANKAREDDY\n");
+    int mat1[2][2] = {{1, 2}, {3, 4}};
+    int mat2[2][2] = {{5, 6}, {7, 8}};
+    int res[2][2];
+
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            res[i][j] = 0;
+            for (int k = 0; k < 2; k++) {
+                res[i][j] += mat1[i][k] * mat2[k][j];
+            }
+        }
+    }
+
+    printf("Resultant Matrix:\n");
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            printf("%d ", res[i][j]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
