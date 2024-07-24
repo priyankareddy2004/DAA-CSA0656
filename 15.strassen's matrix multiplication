@@ -1,0 +1,102 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define SIZE 2
+void printMatrix(int matrix[][SIZE]) {
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            printf("%d ", matrix[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+void addMatrices(int matrix1[][SIZE], int matrix2[][SIZE], int result[][SIZE]) {
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            result[i][j] = matrix1[i][j] + matrix2[i][j];
+        }
+    }
+}
+
+void subtractMatrices(int matrix1[][SIZE], int matrix2[][SIZE], int result[][SIZE]) {
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            result[i][j] = matrix1[i][j] - matrix2[i][j];
+        }
+    }
+}
+
+void strassenMatrixMultiplication(int matrix1[][SIZE], int matrix2[][SIZE], int result[][SIZE]) {
+    int p1[SIZE][SIZE], p2[SIZE][SIZE], p3[SIZE][SIZE], p4[SIZE][SIZE], p5[SIZE][SIZE], p6[SIZE][SIZE], p7[SIZE][SIZE];
+
+    int a[SIZE][SIZE], b[SIZE][SIZE], c[SIZE][SIZE], d[SIZE][SIZE];
+    int e[SIZE][SIZE], f[SIZE][SIZE], g[SIZE][SIZE], h[SIZE][SIZE];
+
+    // Divide the matrices into quarters
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            a[i][j] = matrix1[i][j];
+            b[i][j] = matrix1[i][j + SIZE / 2];
+            c[i][j] = matrix1[i + SIZE / 2][j];
+            d[i][j] = matrix1[i + SIZE / 2][j + SIZE / 2];
+
+            e[i][j] = matrix2[i][j];
+            f[i][j] = matrix2[i][j + SIZE / 2];
+            g[i][j] = matrix2[i + SIZE / 2][j];
+            h[i][j] = matrix2[i + SIZE / 2][j + SIZE / 2];
+        }
+    }
+
+    // Calculate p1 to p7
+    addMatrices(a, d, p1);
+    addMatrices(e, h, p2);
+    addMatrices(p1, p2, p3);
+
+    addMatrices(d, c, p4);
+    addMatrices(h, g, p5);
+    addMatrices(p4, p5, p6);
+
+    subtractMatrices(b, d, p4);
+    addMatrices(e, f, p5);
+    addMatrices(p4, p5, p7);
+
+    subtractMatrices(a, c, p4);
+    addMatrices(g, h, p5);
+    addMatrices(p4, p5, p1);
+
+    addMatrices(a, b, p4);
+    addMatrices(e, h, p5);
+    addMatrices(p4, p5, p2);
+
+    subtractMatrices(f, h, p4);
+    addMatrices(c, d, p5);
+    addMatrices(p4, p5, p3);
+
+    // Calculate the final result
+    addMatrices(p3, p5, result);
+    addMatrices(result, p2, result);
+    addMatrices(result, p1, result);
+    subtractMatrices(result, p4, result);
+    addMatrices(result, p6, result);
+    subtractMatrices(result, p7, result);
+}
+
+int main() {
+	printf("192211645-G.PRIYANKAREDDY\n");
+    int matrix1[SIZE][SIZE] = {{1, 2}, {3, 4}};
+    int matrix2[SIZE][SIZE] = {{5, 6}, {7, 8}};
+    int result[SIZE][SIZE];
+
+    printf("Matrix 1:\n");
+    printMatrix(matrix1);
+
+    printf("Matrix 2:\n");
+    printMatrix(matrix2);
+
+    strassenMatrixMultiplication(matrix1, matrix2, result);
+
+    printf("Result:\n");
+    printMatrix(result);
+
+    return 0;
+}
