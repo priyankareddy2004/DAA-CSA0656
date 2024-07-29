@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+void insert(int arr[], int n, int num, int pos) {
+    for (int i = n; i >= pos; i--) {
+        arr[i] = arr[i-1];
+    }
+    arr[pos-1] = num;
+}
+
+int main() {
+    int arr[100], n, num, pos;
+    printf("192211646-G.PRIYANKAREDDY\n");
+    printf("Enter the number of elements: ");
+    scanf("%d", &n);
+
+    printf("Enter the elements: ");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    printf("Enter the number to be inserted: ");
+    scanf("%d", &num);
+
+    printf("Enter the position: ");
+    scanf("%d", &pos);
+
+    insert(arr, n, num, pos);
+
+    printf("Array after insertion: ");
+    for (int i = 0; i <= n; i++) {
+        printf("%d ", arr[i]);
+    }
+
+    return 0;
+}
