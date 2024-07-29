@@ -1,0 +1,34 @@
+#include <stdio.h>
+
+void containerLoader(int weights[], int n, int capacity) {
+    int loadedWeight = 0;
+    printf("Containers loaded: ");
+    for (int i = 0; i < n; i++) {
+        if (loadedWeight + weights[i] <= capacity) {
+            loadedWeight += weights[i];
+            printf("%d ", weights[i]);
+        }
+    }
+    printf("\nTotal weight: %d\n", loadedWeight);
+}
+
+int main() {
+    int n, capacity;
+    printf("192211645 G.PRIYANKAREDDY\n");
+    printf("Enter the number of containers: ");
+    scanf("%d", &n);
+
+    int weights[n];
+
+    printf("Enter the weights of the containers: ");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &weights[i]);
+    }
+
+    printf("Enter the capacity of the loader: ");
+    scanf("%d", &capacity);
+
+    containerLoader(weights, n, capacity);
+
+    return 0;
+}
