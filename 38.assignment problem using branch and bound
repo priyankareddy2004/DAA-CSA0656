@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <limits.h>
+
+#define N 4
+
+int findMinCost(int cost[N][N], int n, int x, int y, int visited[]) {
+    if (x == n) {
+        return cost[x][y];
+    }
+
+    int minCost = INT_MAX;
+
+    for (int i = 0; i < n; i++) {
+        if (!visited[i]) {
+            visited[i] = 1;
+            int currCost = cost[x][i] + findMinCost(cost, n, x + 1, i, visited);
+            if (currCost < minCost) {
+                minCost = currCost;
+            }
+            visited[i] = 0;
+        }
+    }
+    return minCost;
+}
+
+int main() {
+    int cost[N][N] = {
+        {9, 2, 7, 8},
+        {6, 4, 3, 7},
+        {5, 8, 1, 8},
+        {7, 6, 9, 4}
+    };
+
+    int visited[N] = {0};
+    int minCost = findMinCost(cost, N, 0, 0, visited);
+    printf("192211645 G.PRIYANKAREDDY\n");
+    printf("The minimum cost is: %d\n", minCost);
+
+    return 0;
+}
